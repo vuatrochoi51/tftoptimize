@@ -280,7 +280,7 @@ void solve_bnb(uint64_t current_team, int empty_slots, int start_idx, int curren
 int get_item_score(const std::string& role, const std::string& modifier, int item1, int item2) {
     if (item1 > item2) std::swap(item1, item2);
     
-    // ĐÃ KHÔI PHỤC: Thêm lại is_ap_item
+
     bool is_tank_item = (item1 >= 5 && item1 <= 7) || (item2 >= 5 && item2 <= 7);
     bool is_ap_item   = (item1 >= 3 && item1 <= 4) || (item2 >= 3 && item2 <= 4); 
     bool has_sword    = (item1 == 1 || item2 == 1);
@@ -432,7 +432,6 @@ OptimizationResult run_optimization(int level, std::vector<std::string> team_ids
     int current_team_size = std::popcount(base_team_mask);
 
     int carry_bit_pos = -1;
-    // BẢN VÁ LỖI TÌM CARRY: Đã mở rộng nhận diện thêm ap_carry và ad_carry
     for (const auto& conf : board_configs) {
         if (conf.role == "carry" || conf.role == "ap_carry" || conf.role == "ad_carry") {
             auto it = champion_bit_index.find(conf.id);
@@ -498,7 +497,6 @@ OptimizationResult run_optimization(int level, std::vector<std::string> team_ids
         int global_mask = (1 << n_items) - 1; 
         for (const auto& config : board_configs) {
             
-            // BẢN VÁ LỖI GHÉP ĐỒ: Từ chối phân bổ đồ cho các tướng bị đánh dấu là "utility"
             if (config.role == "utility" || config.role.empty()) continue;
 
             if (config.slots_left <= 0 || std::popcount(static_cast<unsigned int>(global_mask)) < 2) continue;

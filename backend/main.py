@@ -67,11 +67,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# === ĐÃ SỬA: CẬP NHẬT CLASS KIỂM DUYỆT ĐỂ NHẬN MODIFIER ===
 class BoardConfig(BaseModel):
     id: str
     role: str
-    modifier: str = "none" # Bắt buộc có dòng này để nhận dữ liệu từ Web
+    modifier: str = "none" 
     slots_left: int
 
 class OptimizeRequest(BaseModel):
